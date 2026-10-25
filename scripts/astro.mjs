@@ -1,0 +1,10 @@
+import { spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+const bundled = resolve('node_modules/node/bin', process.platform === 'win32' ? 'node.exe' : 'node');
+const command = process.argv[2];
+const script = command === 'check' ? 'node_modules/@astrojs/check/bin/astro-check.js' : 'node_modules/astro/bin/astro.mjs';
+const args = command === 'check' ? process.argv.slice(3) : process.argv.slice(2);
+const child = spawn(existsSync(bundled) ? bundled : process.execPath, [script,...args], { stdio:'inherit', env:{...process.env,ASTRO_TELEMETRY_DISABLED:'1'} });
+child.on('error', error => { console.error(error); process.exitCode=1; });
+child.on('exit', code => { process.exitCode = code ?? 1; });

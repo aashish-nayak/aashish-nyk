@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { experience } from '../data/experience';
+---
+<BaseLayout title="Experience" description="Aashish Nayak's software engineering experience at Fondos Tech, AddWeb Solution, and Scrum Digital, from Laravel applications to secure integrations.">
+  <div class="page-intro"><h1>The work so far<span class="red">.</span></h1><p>5+ years building web applications, connecting systems, and improving the workflows behind real products.</p></div>
+  <section class="experience-full section" aria-label="Professional experience">{experience.map(e => <article class="role"><p class="meta">{e.dates}</p><div><h2 class="text-3xl font-bold">{e.role}</h2><p class="company">@ {e.company}</p><ul>{e.details.map(d => <li>{d}</li>)}</ul></div></article>)}</section>
+  <ContactCTA/>
+</BaseLayout>

@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ArrowLeft, ArrowRight } from '@lucide/astro';
+---
+<BaseLayout title="Page not found" noindex><div class="page-intro"><h1 class="red">404.</h1><h2 class="marker text-4xl mt-5">A page out of place.</h2><p>This page doesn’t exist. Let’s get you back to something useful.</p><div class="actions"><a class="sketch-button" href="/"><ArrowLeft size={20}/> Home</a><a class="text-link" href="/projects/">Explore Projects <ArrowRight size={20}/></a><a class="text-link" href="/contact/">Get in Touch</a></div></div></BaseLayout>

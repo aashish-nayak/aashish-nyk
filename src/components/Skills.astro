@@ -1,0 +1,9 @@
+---
+import { Check } from '@lucide/astro';
+import { skills, learning } from '../data/experience';
+const { detailed = false } = Astro.props;
+---
+<div>
+  {skills.map(group => <div class="skills-group"><Check size={20}/><div>{detailed && <h3 class="text-xl mb-2">{group.title}</h3>}<ul class="tag-list" aria-label={group.title}>{group.items.map(t => <li class="tag">{t}</li>)}</ul></div></div>)}
+  <p class="mt-5 text-lg muted">Currently learning: {learning.join(', ')}.</p>
+</div>

@@ -1,0 +1,75 @@
+export interface Project {
+  slug: string; title: string; summary: string; category: string; tags: string[];
+  technologies: string[]; featured?: boolean; role?: string; status?: string;
+  problem?: string; features?: string[]; implementation?: string; challenges?: string[];
+  learnings?: string[]; liveUrl?: string; repositoryUrl?: string; image?: string;
+}
+export const projects: Project[] = [
+  {
+    slug: 'worldlytic', title: 'Worldlytic', category: 'Product development', tags: ['Product Development', 'Full-Stack Applications'], featured: true,
+    summary: 'Compare salaries, living costs, and the financial side of working from anywhere.',
+    technologies: ['Astro', 'React', 'TypeScript', 'Vercel'], status: 'Public website',
+    role: 'Product development',
+    problem: 'A salary figure alone does not explain how far your income will go in another city or country.',
+    features: ['Salary and cost-of-living comparison', 'Take-home pay and remote salary calculators', 'City and country comparison tools'],
+    implementation: 'The project uses Astro with React components. The public website brings financial and relocation calculators into a comparison-oriented experience.',
+    liveUrl: 'https://worldlytic.com',
+  },
+  {
+    slug: 'wickto', title: 'Wickto', category: 'Real-time cricket scoring', tags: ['Product Development', 'Real-Time Applications', 'AI / LLM'], featured: true,
+    summary: 'Ball-by-ball cricket scoring, shareable matches, and AI-generated commentary. Previously Gully Cricket Score.',
+    technologies: ['React', 'TypeScript', 'Firebase', 'Gemini API', 'Tailwind CSS'],
+    role: 'Application development',
+    problem: 'Gully, turf, and club cricket need lightweight scoring and an easy way to share a match as it unfolds.',
+    features: ['Live ball-by-ball scoring and shareable match links', 'AI-generated and voice commentary', 'Local match state with undo and redo'],
+    implementation: 'React and TypeScript handle the scoring interface. Firebase Realtime Database supports shared match state, while the Gemini API and browser audio capabilities support commentary. The local project also uses Astro for its website.',
+    image: '/images/wickto-scorecard.png',
+    liveUrl: 'https://wickto.com/',
+  },
+  {
+    slug: 'tuco2', title: 'tuCO2', category: 'Sustainability application', tags: ['Full-Stack Applications', 'Backend Engineering'], featured: true,
+    summary: 'Carbon-footprint calculation and offset workflows for travel and accommodation.',
+    technologies: ['Laravel', 'Flutter', 'Google Distance API'], role: 'Backend API and integration development',
+    problem: 'Travel and accommodation footprint calculations need distance inputs, offset management, and transaction workflows.',
+    features: ['Footprint calculation APIs', 'Offset management and transaction processing', 'Distance measurement with Google Distance API', 'Dynamic admin form builder', 'Payment integration for offset transactions'],
+    implementation: 'Laravel backend APIs support the Flutter application, combining distance measurement, administrative forms, and payment workflows. Environmental impact and offset validity are not independently verified here.',
+    liveUrl: 'https://tuco2.com/',
+  },
+  {
+    slug: 'ai-content-document-generator', title: 'AI Content & Document Generator', category: 'AI application', tags: ['AI / LLM', 'Full-Stack Applications'], featured: true,
+    summary: 'Generate content, summaries, and reports with reusable prompts and streamed output.',
+    technologies: ['Laravel', 'Vue.js', 'Gemini API', 'REST APIs'],
+    features: ['Content and document generation', 'Summaries and reports', 'Prompt templating and API orchestration', 'Streaming output display'],
+    implementation: 'Laravel and REST APIs orchestrate generation requests to Gemini. A Vue.js interface displays the streamed output. Detailed architecture and prompt templates are not publicly documented.',
+  },
+  {
+    slug: 'chatmodule', title: 'ChatModule', category: 'Customer support chat', tags: ['Real-Time Applications', 'Full-Stack Applications'], featured: true,
+    summary: 'An embeddable customer support widget with an operator dashboard and real-time messaging.',
+    technologies: ['Laravel', 'Vue.js', 'Firebase', 'WebSockets'],
+    features: ['Embeddable chat widget', 'Operator dashboard', 'Real-time message delivery', 'Operator routing'],
+    implementation: 'A Laravel and Vue.js application using Firebase and WebSockets for customer support messaging. Inspired by the support-widget model used by Tawk.to.',
+    repositoryUrl: 'https://github.com/aashish-scrum/FirebaseOperatorChat',
+  },
+  {
+    slug: 'news15india', title: 'News15India', category: 'Freelance news platform', tags: ['Client Projects', 'Full-Stack Applications'],
+    summary: 'A news publishing platform with editorial tools, media management, and reader interactions.',
+    technologies: ['Laravel 8', 'Bootstrap 4.6', 'WebSockets', 'OneSignal'], role: 'Freelance developer',
+    features: ['News, categories, and multi-level navigation', 'Polls, comments, and link management', 'Custom media gallery', 'Chat and email client modules', 'Push notification integration'],
+    liveUrl: 'https://www.news15india.com/',
+    repositoryUrl: 'https://github.com/aashish-nayak/news15india.com',
+  },
+  {
+    slug: 'snakegame', title: 'SnakeGame', category: 'Browser game', tags: ['Experiments'],
+    summary: 'A classic snake game with difficulty levels, audio, and responsive gameplay.',
+    technologies: ['HTML', 'CSS', 'JavaScript'],
+    features: ['Snake movement, food generation, and collision detection', 'Background gameplay music', 'Difficulty levels', 'Responsive gameplay and PWA capabilities'],
+    liveUrl: 'https://aashish-nayak.github.io/snake-js/',
+    repositoryUrl: 'https://github.com/aashish-nayak/snake-js',
+  },
+  { slug: 'blueclubselect', title: 'BlueClubSelect', category: 'Staff & inventory', tags: ['Backend Engineering'], summary: 'A Laravel administration panel for staff and inventory management.', technologies: ['Laravel'], features: ['Staff management', 'Inventory management'] },
+  { slug: 'store-for-me', title: 'Store for Me', category: 'Self storage solution', tags: ['Backend Engineering', 'Client Projects'], summary: 'Self storage solution in Delhi NCR with an admin panel for dynamic frontend components, storage, and products.', technologies: [], features: ['Dynamic frontend component management', 'Storage and product management'], liveUrl: 'https://www.storeforme.in/' },
+  { slug: 'skills-and-more', title: 'Skills & More', category: 'Education platform', tags: ['Full-Stack Applications'], summary: 'A skills-based e-learning platform for children.', technologies: [] },
+  { slug: 'ad-furniture', title: 'A&D Furniture', category: 'E-commerce', tags: ['Client Projects'], summary: 'A PHP e-commerce website for product management and online product presentation.', technologies: ['PHP'], features: ['Product management', 'Online product presentation'] },
+  { slug: 'redchilli-art', title: 'RedChilli Art', category: 'E-commerce', tags: ['Client Projects'], summary: 'A PHP e-commerce website for managing and showcasing products.', technologies: ['PHP'], features: ['Product management', 'Product showcase'] },
+  { slug: 'mencureclinic', title: 'MenCureClinic', category: 'Healthcare administration', tags: ['Backend Engineering'], summary: 'A backend administration panel for managing patients, doctors, and inquiries.', technologies: [], features: ['Patient administration', 'Doctor administration', 'Inquiry management'] },
+];

@@ -1,0 +1,12 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import type { Project } from '../data/projects';
+interface Props { project: Project; }
+const { project: p } = Astro.props;
+---
+<article class="project-card" data-project data-search={`${p.title} ${p.summary} ${p.technologies.join(' ')}`.toLowerCase()} data-categories={JSON.stringify(p.tags)} data-technologies={JSON.stringify(p.technologies)}>
+  <div class="project-head"><span class="project-mark" aria-hidden="true">{p.title[0]}</span><div><p class="meta">{p.category}</p><h3><a href={`/projects/${p.slug}/`}>{p.title}</a></h3></div></div>
+  <p>{p.summary}</p>
+  {p.technologies.length > 0 && <ul class="tag-list" aria-label="Technology stack">{p.technologies.slice(0,4).map(t => <li class="tag">{t}</li>)}</ul>}
+  <div class="project-links"><a href={`/projects/${p.slug}/`}>Project notes <ArrowUpRight size={16}/></a>{p.liveUrl && <a href={p.liveUrl} target="_blank" rel="noopener noreferrer">Live site <ArrowUpRight size={16}/></a>}{p.repositoryUrl && <a href={p.repositoryUrl} target="_blank" rel="noopener noreferrer">Source <ArrowUpRight size={16}/></a>}</div>
+</article>

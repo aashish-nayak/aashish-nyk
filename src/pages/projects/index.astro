@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/projects';
+const categories = ['All', 'Product Development', 'Backend Engineering', 'Full-Stack Applications', 'AI / LLM', 'Real-Time Applications', 'Client Projects', 'Experiments'];
+const technologies = [...new Set(projects.flatMap(p => p.technologies))].sort();
+---
+<BaseLayout title="Projects" description="Explore Aashish Nayak's products, Laravel backends, real-time applications, and AI experiments, with documented contributions and verified links.">
+  <div class="page-intro"><h1>Things I’ve built<span class="red">.</span></h1><p>Products, client work, and experiments. A collection of problems I’ve worked on, and the software that came out of them.</p></div>
+  <div class="filters" id="filters" hidden>
+    <div class="filter-controls"><div><label for="project-search">Find a project</label><input id="project-search" type="search" placeholder="Try Laravel, cricket, or payments" autocomplete="off" /></div><div><label for="technology">Technology</label><select id="technology"><option value="">Any technology</option>{technologies.map(t => <option>{t}</option>)}</select></div></div>
+    <div class="filter-buttons" role="group" aria-label="Project category">{categories.map((c,i) => <button type="button" class="filter-button" data-category={c} aria-pressed={i === 0}>{c}</button>)}</div>
+    <p class="mt-4 text-lg muted" id="result-count" role="status" aria-live="polite">{projects.length} projects</p>
+  </div>
+  <section class="section" aria-label="Projects"><h2 class="sr-only">Project collection</h2><div class="project-grid">{projects.map(p => <ProjectCard project={p}/>)}</div><div id="empty-results" class="empty-note" hidden><h2>No projects match these filters.</h2><p>Try another term, or clear the filters to see everything.</p><button class="sketch-button mt-5" id="reset-filters">Clear filters</button></div></section>
+  <script>
+    const filters = document.querySelector<HTMLElement>('#filters')!; filters.hidden = false;
+    const search = document.querySelector<HTMLInputElement>('#project-search')!;
+    const technology = document.querySelector<HTMLSelectElement>('#technology')!;
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-project]')];
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-category]')];
+    let category = 'All';
+    function update() { let count = 0; cards.forEach(card => { const matches = (category === 'All' || JSON.parse(card.dataset.categories!).includes(category)) && (!technology.value || JSON.parse(card.dataset.technologies!).includes(technology.value)) && card.dataset.search!.includes(search.value.trim().toLowerCase()); card.hidden = !matches; if(matches) count++; }); document.querySelector('#result-count')!.textContent = `${count} ${count === 1 ? 'project' : 'projects'}`; document.querySelector<HTMLElement>('#empty-results')!.hidden = count !== 0; buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.category === category))); }
+    buttons.forEach(b => b.addEventListener('click', () => { category = b.dataset.category!; update(); }));
+    search.addEventListener('input',update); technology.addEventListener('change',update);
+    document.querySelector('#reset-filters')!.addEventListener('click', () => { category='All'; search.value=''; technology.value=''; update(); search.focus(); });
+  </script>
+</BaseLayout>
+
