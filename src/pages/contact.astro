@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+import FAQ from '../components/FAQ.astro';
 import { site } from '../data/site';
 import { Copy, Mail } from '@lucide/astro';
 ---
-<BaseLayout title="Contact" description="Contact Aashish Nayak about backend engineering roles, full-stack products, AI integrations, and software collaborations.">
+<BaseLayout title="Contact" description="Contact Aashish Nayak about backend engineering roles, full-stack products, AI integrations, and software collaborations." includeFaqSchema={true}>
   <div class="page-intro">
     <h1>Let’s talk<span class="red">.</span></h1>
     <p>Have an engineering role, a product idea, or a problem worth solving? I’d like to hear about it.</p>
@@ -15,6 +16,7 @@ import { Copy, Mail } from '@lucide/astro';
     <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
   </div>
 
+  <FAQ title="Collaboration & Hiring FAQ" subtitle="Common questions about engagement models, communication, and response times." />
   <ContactCTA />
 
   <script>

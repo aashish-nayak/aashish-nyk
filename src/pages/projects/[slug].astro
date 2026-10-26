@@ -8,8 +8,24 @@ const { project:p, index } = Astro.props;
 const related = projects.filter(other => other.slug !== p.slug && other.tags.some(t => p.tags.includes(t))).slice(0,2);
 const previous = projects[(index - 1 + projects.length) % projects.length];
 const next = projects[(index + 1) % projects.length];
+
+const siteOrigin = 'https://aashish-nyk.vercel.app';
+const projectSchema = {
+  '@type': 'SoftwareApplication',
+  name: p.title,
+  description: p.summary,
+  applicationCategory: p.category,
+  operatingSystem: 'Web Browser',
+  author: {
+    '@type': 'Person',
+    name: 'Aashish Nayak',
+    url: siteOrigin,
+  },
+  url: p.liveUrl || `${siteOrigin}/projects/${p.slug}`,
+  ...(p.features && p.features.length > 0 ? { featureList: p.features.join('. ') } : {}),
+};
 ---
-<BaseLayout title={p.title} description={p.summary}>
+<BaseLayout title={p.title} description={p.summary} customSchema={projectSchema}>
   <div class="page-intro"><a class="text-link" href="/projects"><ArrowLeft size={18}/> All projects</a><h1>{p.title}<span class="red">.</span></h1><p>{p.summary}</p><div class="actions">{p.liveUrl && <a class="sketch-button" href={p.liveUrl} target="_blank" rel="noopener noreferrer">Visit live site <ArrowUpRight size={20}/></a>}{p.repositoryUrl && <a class="text-link" href={p.repositoryUrl} target="_blank" rel="noopener noreferrer">View source <ArrowUpRight size={20}/></a>}</div></div>
   <div class="detail-grid"><article class="prose">
     {p.problem && <><h2>The problem</h2><p>{p.problem}</p></>}

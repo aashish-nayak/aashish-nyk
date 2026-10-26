@@ -2,9 +2,30 @@
 import '../styles/global.css';
 import { Moon, Sun, Menu, X, ArrowUp } from '@lucide/astro';
 import { site, navigation } from '../data/site';
-interface Props { title: string; description?: string; noindex?: boolean; }
-const { title, description = site.description, noindex = false } = Astro.props;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+import { faqs } from '../data/faq';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  ogType?: string;
+  ogImage?: string;
+  includeFaqSchema?: boolean;
+  customSchema?: Record<string, any> | Record<string, any>[];
+}
+
+const {
+  title,
+  description = site.description,
+  noindex = false,
+  ogType = 'website',
+  ogImage,
+  includeFaqSchema = false,
+  customSchema,
+} = Astro.props;
+
+const siteOrigin = (Astro.site ? Astro.site.href : 'https://aashish-nyk.vercel.app').replace(/\/$/, '');
+const canonical = new URL(Astro.url.pathname, siteOrigin).href;
 const current = Astro.url.pathname;
 const active = (href: string) => {
   const normCurrent = current.replace(/\/$/, '') || '/';
@@ -12,6 +33,164 @@ const active = (href: string) => {
   return normHref === '/' ? normCurrent === '/' : (normCurrent === normHref || normCurrent.startsWith(`${normHref}/`));
 };
 const pageTitle = title === 'Home' ? 'Aashish Nayak | Software Engineer, Backend & Full-Stack' : `${title} | Aashish Nayak`;
+const socialImage = ogImage || new URL('/images/og-image.png', siteOrigin).href;
+
+// Structured Data Graph for GEO, AEO & Technical SEO
+const personSchema = {
+  '@type': 'Person',
+  '@id': `${siteOrigin}/#person`,
+  name: site.name,
+  alternateName: ['Aashish', 'Ashu Nayak'],
+  jobTitle: 'Software Engineer',
+  description: site.description,
+  url: siteOrigin,
+  image: new URL('/images/aashish-profile.jpg', siteOrigin).href,
+  telephone: site.phone,
+  email: `mailto:${site.email}`,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Jaipur',
+    addressRegion: 'Rajasthan',
+    addressCountry: 'India',
+  },
+  sameAs: [site.github, site.linkedin],
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'University Maharaja College, Jaipur',
+  },
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Fondos Tech Pvt. Ltd.',
+  },
+  knowsAbout: [
+    'PHP',
+    'Laravel',
+    'REST APIs',
+    'Backend Architecture',
+    'Full-Stack Development',
+    'Vue.js',
+    'React',
+    'TypeScript',
+    'Astro',
+    'Tailwind CSS',
+    'SQL Query Optimization',
+    'WebSockets',
+    'Firebase',
+    'Payment Gateways',
+    'Artificial Intelligence',
+    'Google Gemini API',
+    'WebAssembly',
+  ],
+};
+
+const serviceSchema = {
+  '@type': 'ProfessionalService',
+  '@id': `${siteOrigin}/#service`,
+  name: 'Aashish Nayak — Software Engineering & Consulting',
+  url: siteOrigin,
+  provider: { '@id': `${siteOrigin}/#person` },
+  image: new URL('/images/aashish-profile.jpg', siteOrigin).href,
+  description: 'Professional backend systems architecture, full-stack application development, payment integrations, and AI-enabled product workflows for startups and clients.',
+  telephone: site.phone,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Jaipur',
+    addressRegion: 'Rajasthan',
+    addressCountry: 'India',
+  },
+  areaServed: 'Worldwide',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Software Engineering Services',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Backend Architecture & REST APIs',
+          description: 'Scalable Laravel backends, database schema design, and secure payment and third-party integrations.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Full-Stack Web Development',
+          description: 'Production web applications built with Laravel, Vue.js, React, TypeScript, and modern frontend tools.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'AI & LLM Integration Engineering',
+          description: 'Integrating Gemini and LLM APIs, prompt engineering pipelines, and streaming content generation into business workflows.',
+        },
+      },
+    ],
+  },
+};
+
+const websiteSchema = {
+  '@type': 'WebSite',
+  '@id': `${siteOrigin}/#website`,
+  url: siteOrigin,
+  name: 'Aashish Nayak | Software Engineer Portfolio',
+  description: site.description,
+  publisher: { '@id': `${siteOrigin}/#person` },
+  inLanguage: 'en-US',
+};
+
+const breadcrumbSchema =
+  title !== 'Home'
+    ? {
+        '@type': 'BreadcrumbList',
+        '@id': `${canonical}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: siteOrigin,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: title,
+            item: canonical,
+          },
+        ],
+      }
+    : undefined;
+
+const faqSchema = includeFaqSchema
+  ? {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: faqs.map(f => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: f.answer,
+        },
+      })),
+    }
+  : undefined;
+
+const extraSchemas = Array.isArray(customSchema) ? customSchema : customSchema ? [customSchema] : [];
+
+const schemaGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personSchema,
+    serviceSchema,
+    websiteSchema,
+    ...(breadcrumbSchema ? [breadcrumbSchema] : []),
+    ...(faqSchema ? [faqSchema] : []),
+    ...extraSchemas,
+  ],
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -19,21 +198,44 @@ const pageTitle = title === 'Home' ? 'Aashish Nayak | Software Engineer, Backend
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="author" content="Aashish Nayak" />
     <meta name="theme-color" content="#faf9f5" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Geo Meta Tags for Local & Regional AEO/GEO Signals -->
+    <meta name="geo.region" content="IN-RJ" />
+    <meta name="geo.placename" content="Jaipur" />
+    <meta name="geo.position" content="26.9124;75.7873" />
+    <meta name="ICBM" content="26.9124, 75.7873" />
+
     <title>{pageTitle}</title>
-    {canonical && <link rel="canonical" href={canonical} />}
-    <meta name="robots" content={noindex || !Astro.site ? 'noindex, follow' : 'index, follow'} />
+
+    <!-- Open Graph (Facebook, LinkedIn, Discord, Slack) -->
+    <meta property="og:site_name" content="Aashish Nayak" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    {canonical && <meta property="og:url" content={canonical} />}
-    {Astro.site && <meta property="og:image" content={new URL('/images/aashish-profile.jpg', Astro.site).href} />}
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Aashish Nayak — Software Engineer" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content="Aashish Nayak — Software Engineer" />
+
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
     <script is:inline>
       try { const saved = localStorage.getItem('portfolio-theme'); document.documentElement.dataset.theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch {}
     </script>
-    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name:site.name, jobTitle:'Software Engineer', description:site.description, ...(Astro.site ? {url:Astro.site.href} : {}), sameAs:[site.github,site.linkedin] })} />
+    <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
   </head>
   <body id="top">
     <a class="skip" href="#main">Skip to content</a>
