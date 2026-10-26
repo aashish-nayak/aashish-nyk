@@ -26,6 +26,7 @@ export const GET: APIRoute = ({ site }) => {
     'Allow: /',
     '',
     `Sitemap: ${sitemapUrl}`,
+    `Sitemap: ${site ? new URL('sitemap.xml', site).href : 'https://aashish-nyk.vercel.app/sitemap.xml'}`,
     '',
   ].join('\n');
 
