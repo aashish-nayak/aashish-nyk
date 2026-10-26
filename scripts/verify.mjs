@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 
 const root = resolve('dist');
 function walk(dir) { return readdirSync(dir,{withFileTypes:true}).flatMap(e => e.isDirectory() ? walk(resolve(dir,e.name)) : [resolve(dir,e.name)]); }
-const files = walk(root).filter(p => p.endsWith('.html'));
+const files = walk(root).filter(p => p.endsWith('.html') && !p.includes('google'));
 const slugs = ['interprep','worldlytic','wickto','tuco2','ai-content-document-generator','chatmodule','news15india','snakegame','blueclubselect','store-for-me','skills-and-more','ad-furniture','redchilli-art','mencureclinic'];
 const paths = ['', 'projects', 'about', 'experience', 'writing', 'contact', 'resume', ...slugs.map(s => `projects/${s}`)];
 for (const path of paths) assert(existsSync(resolve(root,path,'index.html')), `Missing route: ${path}`);

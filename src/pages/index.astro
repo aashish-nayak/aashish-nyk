@@ -15,8 +15,16 @@ import { experience, education } from '../data/experience';
       <h1 class="hero-title">Hi, I’m <span class="hero-name">Aashish.</span></h1>
       <p class="hero-intro">a <span class="highlight">software engineer</span> building <span class="highlight-pink">backends & full-stack products</span>, with a growing focus on AI.</p>
       <ul class="tag-list" aria-label="Core skills">{['PHP / Laravel','full-stack','Vue.js','React','TypeScript','AI integrations'].map(t => <li class="tag">{t}</li>)}</ul>
-      <div class="actions"><a href="/projects" class="sketch-button sketch-button-explore">Explore Projects <ArrowRight size={21}/></a><a href="/contact" class="text-link">Get in Touch <ArrowUpRight size={19}/></a></div>
-      <div class="status" aria-label="Current status"><span class="meta">Status</span><span class="meta-dot"></span><span class="status-highlight">&bull; {site.status}</span><span class="status-dot" aria-hidden="true"></span></div>
+      <div class="status" aria-label="Current status">
+        <div class="status-label">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="meta">Status</span>
+        </div>
+        <span class="status-dot-sep" aria-hidden="true">•</span>
+        <p class="status-text">
+          <span class="status-highlight">{site.status}</span>
+        </p>
+      </div>
       <div class="flex flex-wrap gap-6 mt-3 text-lg"><a href={site.github} class="text-link">View GitHub <ArrowUpRight size={16}/></a><a href={site.resume || '/resume'} class="text-link" download={site.resume ? true : undefined}>{site.resume ? 'Download Resume' : 'View Resume'} <Download size={16}/></a></div>
     </div>
     <figure class="portrait-wrap"><div class="polaroid"><picture><source srcset="/images/aashish-profile.webp" type="image/webp" /><img src="/images/aashish-profile.jpg" width="460" height="460" alt="Aashish Nayak" fetchpriority="high" decoding="async" /></picture></div><figcaption class="portrait-note"><ArrowUpLeft size={37}/> that’s me, say hi</figcaption></figure>
