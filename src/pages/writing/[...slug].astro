@@ -5,4 +5,4 @@ export async function getStaticPaths() { return (await getCollection('writing', 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
-<BaseLayout title={entry.data.title} description={entry.data.description}><div class="page-intro"><a href="/writing/" class="text-link">All writing</a><h1>{entry.data.title}</h1><p class="meta mt-5"><time datetime={entry.data.published.toISOString()}>{entry.data.published.toLocaleDateString('en-IN')}</time></p></div><article class="prose section"><Content/></article></BaseLayout>
+<BaseLayout title={entry.data.title} description={entry.data.description}><div class="page-intro"><a href="/writing" class="text-link">All writing</a><h1>{entry.data.title}</h1><p class="meta mt-5"><time datetime={entry.data.published.toISOString()}>{entry.data.published.toLocaleDateString('en-IN')}</time></p></div><article class="prose section"><Content/></article></BaseLayout>

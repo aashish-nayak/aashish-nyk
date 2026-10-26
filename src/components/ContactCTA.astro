@@ -1,7 +1,77 @@
 ---
-import { ArrowUpRight } from '@lucide/astro';
+import { site } from '../data/site';
 ---
-<section class="contact-strip" aria-label="Contact">
-  <div><h2 class="marker text-3xl mb-3">Have something in mind?</h2><p>Let’s talk about engineering roles, useful products, or something worth building together.</p></div>
-  <a href="/contact/" class="sketch-button">Get in Touch <ArrowUpRight size={22}/></a>
+
+<section id="contact" class="section contact-section" aria-label="Contact">
+  <div class="contact-heading-row">
+    <h2 class="marker contact-title">Say hi.</h2>
+    <svg viewBox="0 0 80 80" width="48px" height="48px" class="contact-arrow" aria-hidden="true">
+      <path d="M10,10 C30,30 50,30 68,68 M58,60 L70,72 L60,58" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </div>
+  <p class="contact-subline">
+    I'm always up for a chat about code, the web, or weird projects.
+  </p>
+
+  <div class="contact-grid">
+    <a href={`mailto:${site.email}`} class="contact-sticky-link" aria-label={`Email ${site.email}`}>
+      <span class="contact-sticky sticky-yellow" style="transform: rotate(-2.5deg);">
+        <span class="contact-sticky-inner">
+          <span class="contact-icon" aria-hidden="true">✉</span>
+          <div class="contact-text">
+            <span class="contact-label">EMAIL</span>
+            <span class="contact-val">{site.email}</span>
+          </div>
+        </span>
+      </span>
+    </a>
+
+    <a href={site.github} target="_blank" rel="noopener noreferrer" class="contact-sticky-link" aria-label="GitHub profile">
+      <span class="contact-sticky sticky-pink" style="transform: rotate(2deg);">
+        <span class="contact-sticky-inner">
+          <span class="contact-icon" aria-hidden="true">GH</span>
+          <div class="contact-text">
+            <span class="contact-label">CODE</span>
+            <span class="contact-val">github.com/aashish-nayak</span>
+          </div>
+        </span>
+      </span>
+    </a>
+
+    <a href={site.linkedin} target="_blank" rel="noopener noreferrer" class="contact-sticky-link" aria-label="LinkedIn profile">
+      <span class="contact-sticky sticky-blue" style="transform: rotate(1.5deg);">
+        <span class="contact-sticky-inner">
+          <span class="contact-icon" aria-hidden="true">in</span>
+          <div class="contact-text">
+            <span class="contact-label">WORK</span>
+            <span class="contact-val">linkedin.com/in/aashish-nayak</span>
+          </div>
+        </span>
+      </span>
+    </a>
+
+    <a href={`tel:${site.phone}`} class="contact-sticky-link" aria-label={`Phone ${site.phone}`}>
+      <span class="contact-sticky sticky-green" style="transform: rotate(-2deg);">
+        <span class="contact-sticky-inner">
+          <span class="contact-icon" aria-hidden="true">📞</span>
+          <div class="contact-text">
+            <span class="contact-label">PHONE</span>
+            <span class="contact-val">{site.phone}</span>
+          </div>
+        </span>
+      </span>
+    </a>
+
+    <a href={site.resume || '/resume'} download={site.resume ? true : undefined} class="contact-sticky-link" aria-label="Download or view resume">
+      <span class="contact-sticky sticky-green" style="transform: rotate(-1.2deg);">
+        <span class="contact-sticky-inner">
+          <span class="contact-icon" aria-hidden="true">↓</span>
+          <div class="contact-text">
+            <span class="contact-label">RESUME · PDF · 2026</span>
+            <span class="contact-val">grab my resume</span>
+          </div>
+        </span>
+      </span>
+    </a>
+  </div>
 </section>

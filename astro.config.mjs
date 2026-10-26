@@ -7,7 +7,7 @@ if (site && !/^https:\/\/[^/]+\/?$/.test(site)) throw new Error('SITE_URL must b
 export default defineConfig({
   site: site || undefined,
   output: 'static',
-  trailingSlash: 'always',
+  trailingSlash: 'never',
   integrations: site ? [sitemap()] : [],
   vite: { plugins: [tailwindcss()] },
 });

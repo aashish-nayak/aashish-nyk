@@ -29,3 +29,25 @@ export const skills = [
   { title: 'Tools & deployment', items: ['Git', 'GitHub', 'Vercel', 'API integration'] },
 ];
 export const learning = ['RAG systems', 'LangChain', 'Vector databases', 'Python for AI', 'AI agents'];
+
+export interface Education {
+  institution: string;
+  degree: string;
+  dates: string;
+  details?: string[];
+}
+
+export const education: Education[] = [
+  {
+    institution: 'University Maharaja College',
+    degree: 'BCA (Bachelor of Computer Applications)',
+    dates: 'July 2018 - 2021',
+  },
+  {
+    institution: 'Sanjay Memorial Sr. Sec. School, Janta Nagar, Rakdi Sodala',
+    degree: '10+2 Commerce Stream',
+    dates: 'June 2017 - April 2018',
+    details: ['Scored 92% in IT & Programming Subjects'],
+  },
+];
+

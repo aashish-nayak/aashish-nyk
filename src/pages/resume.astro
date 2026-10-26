@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Skills from '../components/Skills.astro';
 import { site } from '../data/site';
-import { experience } from '../data/experience';
+import { experience, education } from '../data/experience';
 import { Download, ArrowLeft } from '@lucide/astro';
 ---
 <BaseLayout title="Resume" description="Aashish Nayak's professional summary, technical skills, education, and software engineering experience.">
@@ -10,5 +10,5 @@ import { Download, ArrowLeft } from '@lucide/astro';
   <section class="section prose"><h2>Professional summary</h2><p>{site.description} Experienced in third-party integrations, payment workflows, reporting tools, and real-time experiences. Currently exploring AI-integrated product development, automation, and agent-based systems.</p></section>
   <section class="section"><h2 class="sticky-title">Experience</h2><div class="experience-full">{experience.map(e => <article class="role"><p class="meta">{e.dates}</p><div><h3>{e.role}</h3><p class="company">{e.company}</p><ul>{e.details.map(d => <li>{d}</li>)}</ul></div></article>)}</div></section>
   <section class="section"><h2 class="sticky-title">Skills</h2><Skills detailed/></section>
-  <section class="section"><h2 class="sticky-title">Education</h2><h3>Bachelor of Computer Applications</h3><p>University Maharaja College, Jaipur</p><a href="/" class="text-link mt-8"><ArrowLeft size={19}/> Back to portfolio</a></section>
+  <section class="section"><h2 class="sticky-title">Education</h2><div class="experience-full">{education.map(e => <article class="role"><p class="meta">{e.dates}</p><div><h3>{e.degree}</h3><p class="company">{e.institution}</p>{e.details && e.details.length > 0 && <ul>{e.details.map(d => <li>{d}</li>)}</ul>}</div></article>)}</div><a href="/" class="text-link mt-8"><ArrowLeft size={19}/> Back to portfolio</a></section>
 </BaseLayout>

@@ -6,6 +6,23 @@ export interface Project {
 }
 export const projects: Project[] = [
   {
+    slug: 'interprep', title: 'InterPrep', category: 'Developer interview preparation', tags: ['Product Development', 'Full-Stack Applications', 'AI / LLM'], featured: true,
+    summary: 'PHP and Laravel interview platform bilingual explanations, WebAssembly code execution & mock practice.',
+    technologies: ['React 19', 'Tailwind CSS', 'Vite', 'WebAssembly', 'Gemini API'], status: 'Public web app',
+    role: 'Product design & development',
+    problem: 'Preparing for PHP and Laravel technical interviews often relies on static, text-heavy notes without the ability to test real code, hear concepts explained naturally in Hinglish, or simulate timed mock assessments.',
+    features: [
+      '137 bilingual English and Hinglish questions across PHP fundamentals, OOP, Laravel, SQL, and system design',
+      'In-browser PHP 8.3 code execution powered by WebAssembly (@php-wasm) with recorded step playback',
+      'Gemini 2.0 Flash Text-to-Speech audio narration with automatic fallback to browser speech synthesis',
+      'Adaptive mock interviews with multiple-choice questions, live coding challenges, and instant rationales',
+      'Active recall study modes with collapsible answers, bookmarking, and local storage progress tracking',
+    ],
+    implementation: 'Frontend-only single-page application built with React 19, Tailwind CSS, and Vite. Leverages @php-wasm to execute PHP snippets securely in an isolated WebWorker without a backend server, and integrates Google AI Studio Gemini TTS for natural voice practice.',
+    liveUrl: 'https://inter-prep-eosin.vercel.app/',
+    repositoryUrl: 'https://github.com/aashish-nayak/InterPrep',
+  },
+  {
     slug: 'worldlytic', title: 'Worldlytic', category: 'Product development', tags: ['Product Development', 'Full-Stack Applications'], featured: true,
     summary: 'Compare salaries, living costs, and the financial side of working from anywhere.',
     technologies: ['Astro', 'React', 'TypeScript', 'Vercel'], status: 'Public website',
@@ -27,6 +44,13 @@ export const projects: Project[] = [
     liveUrl: 'https://wickto.com/',
   },
   {
+    slug: 'ai-content-document-generator', title: 'Insurance Broker Portal', category: 'AI application', tags: ['AI / LLM', 'Full-Stack Applications'], featured: true,
+    summary: 'An end-to-end platform for insurance brokers, enabling automated client communication and proposal generation.',
+    technologies: ['Laravel', 'Vue.js', 'Gemini API', 'REST APIs'],
+    features: ['AI-generated email and message drafts for client communication', 'Automated summary generation for insurance policies', 'Centralized client and policy management'],
+    implementation: 'Laravel and REST APIs orchestrate generation requests to Gemini. A Vue.js interface displays the streamed output. Detailed architecture and prompt templates are not publicly documented.',
+  },
+  {
     slug: 'tuco2', title: 'tuCO2', category: 'Sustainability application', tags: ['Full-Stack Applications', 'Backend Engineering'], featured: true,
     summary: 'Carbon-footprint calculation and offset workflows for travel and accommodation.',
     technologies: ['Laravel', 'Flutter', 'Google Distance API'], role: 'Backend API and integration development',
@@ -34,13 +58,6 @@ export const projects: Project[] = [
     features: ['Footprint calculation APIs', 'Offset management and transaction processing', 'Distance measurement with Google Distance API', 'Dynamic admin form builder', 'Payment integration for offset transactions'],
     implementation: 'Laravel backend APIs support the Flutter application, combining distance measurement, administrative forms, and payment workflows. Environmental impact and offset validity are not independently verified here.',
     liveUrl: 'https://tuco2.com/',
-  },
-  {
-    slug: 'ai-content-document-generator', title: 'AI Content & Document Generator', category: 'AI application', tags: ['AI / LLM', 'Full-Stack Applications'], featured: true,
-    summary: 'Generate content, summaries, and reports with reusable prompts and streamed output.',
-    technologies: ['Laravel', 'Vue.js', 'Gemini API', 'REST APIs'],
-    features: ['Content and document generation', 'Summaries and reports', 'Prompt templating and API orchestration', 'Streaming output display'],
-    implementation: 'Laravel and REST APIs orchestrate generation requests to Gemini. A Vue.js interface displays the streamed output. Detailed architecture and prompt templates are not publicly documented.',
   },
   {
     slug: 'chatmodule', title: 'ChatModule', category: 'Customer support chat', tags: ['Real-Time Applications', 'Full-Stack Applications'], featured: true,

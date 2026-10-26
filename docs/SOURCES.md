@@ -18,5 +18,6 @@ Checked 2026-10-25.
   - Store for Me: https://www.storeforme.in/
   - ChatModule: https://github.com/aashish-scrum/FirebaseOperatorChat
   - Wickto: https://wickto.com/
+  - InterPrep: https://inter-prep-eosin.vercel.app/ & https://github.com/aashish-nayak/InterPrep
 
 The initial green editorial image concept was superseded by the user's explicit notebook-reference direction. It is not used in the website.
